@@ -17,10 +17,10 @@
               <p class="card-text"><%= produs.descriere%> </p>
               <form action="/meniu/cats/produs/<%=produs._id%>?_method=DELETE" method="POST">
                 <a href="/meniu" class="btn btn-primary bg-transparent">Meniu</a>
-                <% if(autUser && autUser.admin===flowerpower) { %> 
+                
                 <a href="/meniu/cats/produs/<%=produs._id%>/edit" class="btn btn-success bg bg-transparent">Modifică</a>
               <button class="btn btn-danger">Șterge</button>
-              <% } %> 
+          
               </form>
             </div>
           </div>
