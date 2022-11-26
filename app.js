@@ -49,16 +49,16 @@ app.use(express.static(path.join(__dirname, 'public')))
 const sessionConfig = {
     store: MongoDbStore.create({
         mongoUrl: dbUrl,
-        secret: process.env.SECRET,
-        touchAfter: 24 * 60 * 60
+        autoRemove: 'interval',
+        autoRemoveInterval: 10
     }),
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7
+        autoRemove: 'interval',
+        autoRemoveInterval: 10
     }
 }
 
