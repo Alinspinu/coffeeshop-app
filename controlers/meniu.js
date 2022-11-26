@@ -40,6 +40,27 @@ res.redirect('/meniu')
 }
 
 
+module.exports.renderCatEdit =  async (req, res, next) => {
+    const cat = await Categorie.findById(req.params.id)
+    res.render('meniu/editCat', {cat})
+}
+
+
+
+module.exports.catEdit = async (req, res, nest) => {
+    const { id } = req.params;
+    const catNou = await Categorie.findByIdAndUpdate(id, {...req.body.categorie})
+    if(req.file){
+        catNou.imagine.path = req.file.path
+        catNou.imagine.filename = req.file.filename
+        }
+    await catNou.save()
+    console.log(catNou)
+    req.flash(`Ai modificat cu succes categoria ${catNou.name}`)
+    res.redirect('/meniu')
+
+}
+
 
 module.exports.renderProdusNou = async (req, res, next) => {
     const cats = await Categorie.find({})
@@ -82,16 +103,15 @@ module.exports.produsEdit =async(req, res, next) => {
     const {id} = req.params;
     const produs = await Produs.findByIdAndUpdate(id, {...req.body.produs});
     console.log(req.body)
-    if(req.body.produs.video){
+    if(req.body.produs.video.lenght < 30) {
         const videoUrlBase = "https://www.youtube.com/embed/"
         const autoplay ="?autoplay=1"
         const videoId = req.body.produs.video.slice(17)
         produs.video = videoUrlBase.concat(videoId, autoplay)
     }
     if(req.file){
-    const {imagine} = req.file
-    produs.imagine.path = imagine[0].path
-    produs.imagine.filename = imagine[0].filename
+    produs.imagine.path = req.file.path
+    produs.imagine.filename = req.file.filename
     }
     await produs.save()
     console.log(produs)
@@ -122,4 +142,3 @@ module.exports.catDelete = async (req, res, next) => {
     req.flash('success', `Felicitări! Ai șters cu succes categoria: ${cat.nume}`)
     res.redirect('/meniu');
 }
-
