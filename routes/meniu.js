@@ -25,6 +25,7 @@ router.route('/cats')
 
 router.route('/cat/:id')
     .get(catchAsync(meniu.renderProduse))
+    .put(isAdmin, upload.single('catImg'), validateCat, catchAsync(meniu.catEdit))
     .delete(isAdmin,catchAsync(meniu.catDelete))
 
 router.route('/cats/produs/nou')
@@ -39,6 +40,7 @@ router.route('/cats/produs/:id')
 router.route('/cats/produs/:id/edit')
     .get(isAdmin,catchAsync(meniu.renderProdusEdit))
 
+router.route('/cats/:id/edit')
+    .get(isAdmin, catchAsync(meniu.renderCatEdit))
 
-
-module.exports = router    
+module.exports = router 
