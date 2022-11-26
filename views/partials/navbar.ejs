@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-expand-lg bg-transparent">
+<nav class="navbar navbar-expand-lg bg-transparent mb-auto">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
           <img src="https://res.cloudinary.com/dhetxk68c/image/upload/v1669059903/ProduseI/Logo_Cafetish_Alb-02_qmietq.png" alt="Bootstrap" width="80" height="40">
@@ -16,8 +16,6 @@
               <a class="nav-link text-white" aria-current="page" href="/comanda/cli">Comadă și ridică</a>
             </li>
           </ul>
-          
-        
           <div class="navbar-nav ms-auto">
              
             <li class="nav-item">
@@ -37,16 +35,14 @@
           
           
           <div class="navbar-nav ms-auto"> 
-    
+            <% if(!autUser) {%> 
             <a href="/user/login" class = "nav-link text-white">Login</a>
             <a href="/user/register" class = "nav-link text-white">Register</a>
-         
+            <% } else{%> 
             <a href="/user/logout" class = "nav-link text-white">Logout</a>
-         
+            <% } %> 
           </div>
         
         </div>
       </div>
   </nav>
-
-  
